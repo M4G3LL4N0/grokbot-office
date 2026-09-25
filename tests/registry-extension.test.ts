@@ -1,10 +1,13 @@
 import { describe, it } from 'node:test';
 import assert from 'node:assert/strict';
+import { mkdtempSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
 import { loadWorkforce } from '../src/registry.js';
 import { escalationPath, assertAllChainToHuman } from '../src/hierarchy.js';
 import { roleState, canGoLive, usageReport } from '../src/budget.js';
-import { readMaterialization } from '../src/materialization.js';
+import { readMaterialization, writeMaterializationStatus } from '../src/materialization.js';
 
 const w = loadWorkforce();
 
@@ -102,9 +105,10 @@ describe('registry extension: 134 GrokBotEcosystemScout', () => {
 });
 
 describe('registry extension: Wave-1 live roles unchanged', () => {
-  it('materialization still has exactly {01,02,03}=live_verified', () => {
-    const mat = readMaterialization();
-    assert.deepEqual(mat, { '01': 'live_verified', '02': 'live_verified', '03': 'live_verified' });
+  it('can represent exactly {01,02,03}=live_verified in isolated state', () => {
+    const root = mkdtempSync(join(tmpdir(), 'grokbot-office-registry-'));
+    for (const id of ['01', '02', '03']) writeMaterializationStatus(root, id, 'live_verified');
+    assert.deepEqual(readMaterialization(root), { '01': 'live_verified', '02': 'live_verified', '03': 'live_verified' });
   });
 
   it('01/02/03 names, tier and parents are unchanged and eval still makes only them eligible-live-now', () => {

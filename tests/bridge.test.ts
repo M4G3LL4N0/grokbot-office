@@ -24,7 +24,7 @@ describe('bridge: scan/build helpers', () => {
   it('walkFiles skips generated/state/vendor and always returns clean relative paths', () => {
     const files = walkFiles(ROOT);
     assert(files.includes('src/cli.ts'));
-    assert(files.includes('docs/GROKBOT_REPO_BRIDGE.md'));
+     assert(files.includes('README.md'));
     for (const f of files) {
       assert(!f.startsWith('/'), `absolute path leaked: ${f}`);
       assert(!f.split('/').some((seg) => ['generated', 'state', 'node_modules', '.git'].includes(seg)), `skipped dir leaked: ${f}`);
