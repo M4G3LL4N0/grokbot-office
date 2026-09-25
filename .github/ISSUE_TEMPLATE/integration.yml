@@ -1,0 +1,3 @@
+name: Integration request
+
+Identify the boundary, data class, credentials model, approval gate, failure behavior, and sanitized test fixture. Do not paste secrets or live account data.

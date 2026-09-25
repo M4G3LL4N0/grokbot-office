@@ -1,0 +1,178 @@
+# Role grouping policy. Drives group candidates, budgets, and routine templates.
+# Groups are derived from topology by default (siblings share a chief);
+# explicit entries below mark named cross-sibling group TEMPLATES (never live
+# groups — templates only, per Cursor group-chat cap of <=6 Bots).
+
+budget_defaults_by_tier:
+  command: small            # chiefs
+  engineering: tiny
+  intelligence: tiny
+  private-office: tiny
+  family-office: tiny
+  travel: tiny
+  commerce: tiny
+  content: tiny
+  experimentation: tiny
+  experimental: tiny
+
+budget_overrides:
+  ChiefOfStaff: medium
+  PrivateChiefOfStaff: small
+  FamilyOfficeChief: small
+  DeepResearcher: small
+  CompetitorAutopsy: small
+  FailedCompanyArchaeologist: small
+  InternetMysteryInvestigator: small
+  DigitalTreasureHunter: small
+  FamilyCFO: small
+  InvestmentOfficeCIOCoordinator: small
+  InvestmentDiligenceAnalyst: small
+  ManagerFundDiligence: small
+  DealFlowScout: small
+  FamilyOfficeDataRoom: small
+  LocationIntelligence: small           # role 133 — durable physical-world supervisor
+  GrokBotEcosystemScout: small          # role 134 — ecosystem intelligence scout
+
+handoff_default: 1
+
+# max concurrent outbound handoffs a role may originate per task.
+handoff_overrides:
+  ChiefOfStaff: 4
+  IntelligenceChief: 3
+  ProjectsChief: 3
+  PersonalOfficeChief: 3
+  FamilyOfficeChief: 3
+  ResearchChief: 3
+  AutomationChief: 3
+  KnowledgeChief: 3
+  PrivateChiefOfStaff: 3
+  RealityAuditor: 2
+  CostOptimizer: 2
+  FamilyCFO: 2
+  InvestmentOfficeCIOCoordinator: 2
+  TravelDirector: 2
+  QASwarmChief: 2
+  OpportunityScout: 2
+  ContentOpportunityScout: 2
+  PhilanthropyDirector: 2
+
+# Explicit cross-sibling collaboration groups (derives allowedPeers).
+explicit_groups:
+  advisory_board:
+    desc: Synthetic multi-perspective board on one decision
+    members: [PersonalResearchDirector, ProblemHunter, InvestmentDiligenceAnalyst, AssumptionHunter, RedTeamSociety]
+    purpose: cross-domain dissent
+  reality_check:
+    desc: Verification cluster
+    members: [ClaimVerifier, ContradictionDetector, FamilyOfficeAuditor, AssumptionHunter]
+    purpose: V/PARTIAL/FALSE/UNKNOWN verification
+  commerce_sprint:
+    desc: Opportunity pipeline
+    members: [ProblemHunter, OpportunityScout, ReverseBusinessGenerator, LocalOpportunityScout, CompetitorAutopsy]
+    purpose: verified opportunities only
+
+# Named group TEMPLATES. Templates only — creating any live group is a MANUAL
+# STEP gated by the usage band. Hard rule: never more than 6 Bots. Group rule:
+# one named task owner; parallel work only on independent subtasks; one merged
+# output; no @everyone unless indispensable.
+group_templates:
+  engineering-triage:
+    desc: Cross-project engineering triage
+    task_owner: ProjectsChief
+    members: [ProjectsChief, GitHubArchaeologist, ArchitectureAuditor, RealityAuditor]
+    purpose: one named owner triages; independent repos in parallel; one merged report
+  research-cell:
+    desc: Question → verified answer cell
+    task_owner: ResearchChief
+    members: [ResearchChief, DeepResearcher, ClaimVerifier, AssumptionHunter]
+    purpose: one owner assigns; research/verification in parallel; merged answer + confidence
+  intelligence-cell:
+    desc: Change/anomaly/unknown-unknown watch
+    task_owner: IntelligenceChief
+    members: [IntelligenceChief, InternetChangeDetector, AnomalyHunter, UnknownUnknownScout]
+    purpose: human-initiated sweep only; one owner consolidates
+  private-office:
+    desc: Principal's private office team
+    task_owner: PrivateChiefOfStaff
+    members: [PrivateChiefOfStaff, ExecutiveAssistant, PersonalResearchDirector, RelationshipChief, TravelDirector]
+    purpose: one owner directs; scheduling/research/relationships/travel separated
+  family-office:
+    desc: Family office coordination cell
+    task_owner: FamilyOfficeChief
+    members: [FamilyOfficeChief, FamilyCFO, InvestmentOfficeCIOCoordinator, LegalCoordinator, TaxCoordinator, InsuranceRiskManager]
+    purpose: one owner; each specialist independent subtask; merged office picture; human approval boundary on conclusions
+  product-redblue:
+    desc: Red-team/blue-team product challenge
+    task_owner: ProjectsChief
+    members: [ProjectsChief, AutonomousQA, AdversarialTester, RedTeamSociety, BlueTeamSociety]
+    purpose: red finds failure modes, blue answers with smallest mitigations; one owner merges
+
+# Routine TEMPLATES only. NO active schedules. A template may graduate to
+# "recommended" only after: role succeeded manually >=2 times; task genuinely
+# recurs; output has a consumer; estimated benefit > usage; no duplicate
+# existing automation. Never recommend hourly routines without strong
+# operational justification.
+routine_templates:
+  weekly_repos:
+    title: Repo census weekly delta
+    cadence: weekly
+    members: [RepoCensus, DuplicationDetector, ToolRetirer]
+    purpose: fresh repo inventory deltas each week
+    consumer: ProjectsChief
+    status: template
+    enabled: false
+    graduated: false
+  weekly_reality:
+    title: Project contradiction audit
+    cadence: weekly
+    members: [ClaimVerifier, ContradictionDetector, AssumptionHunter]
+    purpose: contradictions across runtime/code/docs/claims
+    consumer: RealityAuditor
+    status: template
+    enabled: false
+    graduated: false
+  weekly_spend:
+    title: Subscription audit
+    cadence: monthly
+    members: [SubscriptionAuditor, CostOptimizer]
+    purpose: low-use/overlap/cheaper recurring services
+    consumer: CostOptimizer
+    status: template
+    enabled: false
+    graduated: false
+  weekly_intel:
+    title: Internet change detector week scan
+    cadence: weekly
+    members: [InternetChangeDetector, AnomalyHunter]
+    purpose: what changed that matters; ignore ordinary news
+    consumer: IntelligenceChief
+    status: template
+    enabled: false
+    graduated: false
+  family_deadlines:
+    title: Family office deadline review
+    cadence: weekly
+    members: [FamilyCFO, TaxCoordinator, LegalCoordinator, EstateTrustCoordinator, InsuranceRiskManager]
+    purpose: tax/legal/estate/insurance deadlines + missing actions
+    consumer: FamilyOfficeChief
+    status: template
+    enabled: false
+    graduated: false
+  travel_brief:
+    title: Travel brief
+    cadence: on_demand_only
+    members: [TravelDirector, TravelIntelligence, SunsetEngine]
+    purpose: end-to-end brief only while a trip is active
+    consumer: PrivateChiefOfStaff
+    status: template
+    enabled: false
+    graduated: false
+  weekly_qa:
+    title: Weekly QA sweep
+    cadence: weekly
+    members: [AutonomousQA, SetupTester]
+    purpose: product works on clean install; docs match reality
+    consumer: ProjectsChief
+    status: template
+    enabled: false
+    graduated: false

@@ -1,0 +1,45 @@
+{
+  "name": "grokbot-office",
+  "version": "0.1.0",
+  "description": "GrokBot workforce registry/control/integration layer. Not an operating system.",
+  "private": false,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/M4G3LL4N0/grokbot-office.git"
+  },
+  "bugs": {
+    "url": "https://github.com/M4G3LL4N0/grokbot-office/issues"
+  },
+  "packageManager": "pnpm@9.15.0",
+  "type": "module",
+  "bin": {
+    "grokbot-office": "dist/src/cli.js",
+    "grok": "dist/src/cli.js"
+  },
+  "engines": {
+    "node": ">=22.0.0",
+    "pnpm": ">=9"
+  },
+  "scripts": {
+    "test": "tsx --test tests/*.test.ts",
+    "typecheck": "tsc --noEmit",
+    "build": "tsc -p tsconfig.build.json",
+    "start": "node dist/src/cli.js",
+    "grok": "tsx src/cli.ts",
+    "validate": "tsx src/cli.ts validate",
+    "validate:publication": "node scripts/validate-publication.mjs",
+    "roles": "tsx src/cli.ts roles",
+    "live": "tsx src/cli.ts live",
+    "export": "tsx src/cli.ts export"
+  },
+  "dependencies": {
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.10.5",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.2"
+  }
+}

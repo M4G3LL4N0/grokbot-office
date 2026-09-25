@@ -1,0 +1,15 @@
+name: Bug report
+
+Describe the smallest reproducible behavior. Do not include credentials, cookies, session data, account identifiers, private paths, or personal information.
+
+## Reproduction
+
+## Expected
+
+## Actual
+
+## Validation
+
+- [ ] `pnpm typecheck`
+- [ ] `pnpm test`
+- [ ] `pnpm validate:publication`

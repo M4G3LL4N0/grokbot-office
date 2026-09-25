@@ -1,0 +1,57 @@
+# GrokBot usage policy. Conservation mode is the ACTIVE default (2026-09-21).
+# Change mode only via review of live Cursor GrokBot allowance; this is
+# policy data, not a license to burn usage.
+
+used_pct: 79
+remaining_pct: 21
+mode: conservation          # conservation | normal | relaxed
+
+conservation:
+  # ONLY these roles are eligible to become live GrokBots right now.
+  eligible_live_now: ["01", "02", "03"]
+  max_live_roles: 3
+  allow_new_live: false      # no additional roles until usage recovers
+  audit_frequency: weekly
+  recovery_trigger:          # relax when all true
+    used_under_pct: 60
+    sustained_days: 7
+
+normal:
+  # Design-intent activation once usage permits (base mapping).
+  core_persistent: ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10"]
+  high_value_ondemand: ["11", "12", "13", "14", "15", "16", "17", "18", "19", "20",
+                         "21", "22", "23", "24", "25", "26", "27", "28", "29", "30"]
+  # (sections 11-108 high-value, 109-123 advanced, 124-132 experimental, 133
+  # LocationIntelligence warm supervisor, 134 GrokBotEcosystemScout high-value
+  # on-demand are encoded per-role in registry/roles.yaml as activation; this
+  # file only overrides live state.)
+
+operating_guards:
+  no_autonomous_bot_creation: true      # no public GrokBot creation API assumed
+  human_approval_required_for:
+    - purchase
+    - investment_execution
+    - money_movement
+    - legal_filing
+    - signature
+    - medical_decision
+    - irreversible_account_change
+    - security_change
+  secrets_via: [env, keychain, connector]   # never via prompt/config/git
+  no_money_movement_autonomy: true
+  no_purchase_autonomy: true
+  no_investment_execution_autonomy: true
+  no_legal_filing_autonomy: true
+  no_medical_autonomy: true
+  no_irreversible_account_change_autonomy: true
+
+token_budget_per_task:
+  tiny: 5000
+  small: 15000
+  medium: 40000
+  large: 100000
+
+stop_rules:
+  - "Stop when marginal value < usage."
+  - "Routines run only after one-shot success and defined failure cases."
+  - "No summaries of summaries."

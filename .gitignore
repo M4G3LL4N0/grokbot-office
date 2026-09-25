@@ -1,0 +1,57 @@
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+.DS_Store
+
+# Local mutable state and operational evidence
+state/*
+!state/.gitkeep
+runtime/
+_harvest_export/
+autonomy/
+
+# Generated outputs and archives are reproducible, never published
+generated/*
+!generated/.gitkeep
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.7z
+*.rar
+
+# Legacy operational manuals are quarantined; public contracts live at root
+docs/
+docs/AGENTS.md.proposal
+
+# Credentials, local profiles, and machine state
+*.env
+.env*
+!*.env.example
+*.local
+*.local.*
+.local/
+*.profile
+*.profile.*
+*.pem
+*.key
+*.p12
+*.pfx
+*.sqlite
+*.db
+*cookie*
+*session*
+*token*
+*credential*
+*secret*
+
+# Keep any deliberately public autonomy document opt-in; none are present now
+# autonomy/README.md
+*harvest*
+*usage-live*
+*cash*
+*billing*
+*account*
+*.har
+*.secret

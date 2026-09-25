@@ -1,0 +1,148 @@
+# GrokBot Office security policy. Applies to the workforce definition layer
+# and to every compiled role prompt. No GrokBot is created or activated by
+# this file; it only gates what a robot may do IF run.
+
+# ---- Data classes ---------------------------------------------------------
+# All Bots under one user share one cloud computer/files/browser sessions,
+# so Bot boundaries are NOT security boundaries. Classify by content, not by
+# which Bot touches it.
+data_class_by_domain:
+  command: internal
+  engineering: internal
+  intelligence: internal
+  research: internal
+  knowledge: confidential
+  finance: confidential
+  private: confidential
+  family: confidential
+  travel: public
+  commerce: public
+  content: public
+  experimentation: internal
+  experimental: internal
+
+data_class_overrides:
+  FamilyCFO: highly_sensitive
+  Controller: highly_sensitive
+  TreasuryManager: highly_sensitive
+  InvestmentOfficeCIOCoordinator: highly_sensitive
+  InvestmentDiligenceAnalyst: highly_sensitive
+  DealFlowScout: highly_sensitive
+  TaxCoordinator: highly_sensitive
+  LegalCoordinator: highly_sensitive
+  EstateTrustCoordinator: highly_sensitive
+  InsuranceRiskManager: highly_sensitive
+  EntityGovernanceSecretary: highly_sensitive
+  SuccessionContinuityPlanner: highly_sensitive
+  FamilyOfficeDataRoom: highly_sensitive
+  DigitalEstateDocumentVaultKeeper: highly_sensitive
+  PrivacyCyberCoordinator: highly_sensitive
+  MedicalConciergeCoordinator: highly_sensitive
+  SecurityCoordinator: highly_sensitive
+  ReputationMonitor: confidential
+  PersonalHistorian: confidential
+  PersonalDigitalTwin: confidential
+  ArtCollectiblesRegistrar: confidential
+  LocationIntelligence: confidential    # role 133 — personal location/travel/physical-world picture (travel domain defaults public; override to confidential)
+  # Note: GrokBotEcosystemScout (134) derives dataClass=internal via the
+  # intelligence domain (sibling precedent: CapabilityScout/FutureCapabilityScout).
+  # Its sources are public, but its output is internal ecosystem intelligence.
+
+# ---- High-sensitivity role list --------------------------------------------
+# Roles whose data + decisions warrant the strictest operating rules. The
+# compiler appends a SENSITIVE clause to these profiles and tests verify the
+# restrictions are present. Always personal/family wealth, identities, legal
+# exposure, medical, physical security, or the principal's private records.
+highly_sensitive_roles:
+  - FamilyCFO
+  - Controller
+  - TreasuryManager
+  - InvestmentOfficeCIOCoordinator   # = CIO
+  - TaxCoordinator
+  - LegalCoordinator
+  - EstateTrustCoordinator
+  - MedicalConciergeCoordinator
+  - SecurityCoordinator
+  - FamilyOfficeDataRoom
+
+# ---- Autonomy prohibitions --------------------------------------------------
+# Hard constraints regardless of role. Anything here requires explicit human
+# approval / is executed only by a human.
+no_autonomous:
+  - money_movement           # no sending funds
+  - purchases                # no buying anything
+  - investment_execution     # no placing/cancelling orders
+  - legal_filing_signature   # no filing documents or signing
+  - medical_decisions        # no diagnosis or treatment decisions
+  - irreversible_account_security_change  # no deleting/transferring/credential resets
+  - token_contract_irreversible          # no irreversible on-chain or escrow actions
+
+privileged_actions_require_approval:
+  - sending_messages_external
+  - publishing_content
+  - deleting_production_data
+  - modifying_production_systems
+  - sharing_confidential_or_higher_data_outside_domains
+  - creating_or_deleting_bots
+
+# ---- Secrets ---------------------------------------------------------------
+secrets_policy:
+  never_in_prompt_config_git: true     # passwords/API keys/private keys/recovery codes
+  transport: [env, keychain, approved_connector]
+  connector_tokens_server_side: true    # OAuth tokens stay on the connector backend
+  redact_on_failure: true
+  boot_message: "Never ask a Bot process to read secrets; hand off via env/connector."
+
+# ---- Family Office / Private Office data handling ---------------------------
+sensitive_data_handling:
+  prefer_metadata_index_pointers: true  # indexes/pointers over copies of originals
+  no_unnecessary_copy_of_originals: true
+  records_local_only: true              # sensitive originals stay on a local vault
+  data_room_seed: metadata_only        # FamilyOfficeDataRoom must index, not ingest
+
+# ---- Approval boundary mapping ----------------------------------------------
+# Derived default is 'information' (report/analyze only). Overrides below.
+approval_overrides:
+  PersonalPurchasingAgent: human_approval      # propose best buys; never buy
+  NegotiationResearcher: human_approval
+  TravelDirector: human_approval               # books go through human/Secretary
+  AviationCoordinator: human_approval
+  WeatherMigration: human_approval
+  SerendipityTravel: human_approval
+  RoadtripIntelligence: human_approval
+  FamilyCFO: human_approval                    # no autonomous money movement
+  Controller: human_approval
+  TreasuryManager: human_approval
+  InvestmentOfficeCIOCoordinator: human_approval
+  InvestmentDiligenceAnalyst: human_approval
+  PortfolioIntelligence: human_approval
+  ManagerFundDiligence: human_approval
+  DealFlowScout: human_approval
+  TaxCoordinator: human_approval
+  LegalCoordinator: human_approval
+  EstateTrustCoordinator: human_approval
+  InsuranceRiskManager: human_approval
+  EntityGovernanceSecretary: human_approval
+  SuccessionContinuityPlanner: human_approval
+  PhilanthropyDirector: human_approval
+  FoundationDAFAdministrator: human_approval
+  RealEstateAssetManager: human_approval
+  VendorProcurementDirector: human_approval
+  MedicalConciergeCoordinator: human_approval
+  SecurityCoordinator: human_approval
+
+internal_write_roles:     # these update internal knowledge/artifacts only
+  - KnowledgeChief
+  - DocumentationKeeper
+  - PersonalKnowledgeLibrarian
+  - PersonalHistorian
+  - FamilyOfficeDataRoom
+  - DigitalEstateDocumentVaultKeeper
+  - ToolCreator
+  - FutureHistorian
+  - CounterfactualHistorian
+
+revenue_intelligence:      # roles that emit economic/revenue-relevant intelligence
+  roles: [IntelligenceChief, OpportunityScout, ProblemHunter, CustomerPainDatabase, CultureEarlyDetector, WhatPeoplePayForScout]
+  consumers: [paios-economic-intelligence, civilization-cortex]  # UNVERIFIED targets; see docs/ARCHITECTURE.md
+  note: "No RevenueOS consumed yet — nearest surfaces are paios-one/docs/economic-intelligence and civilization registry."

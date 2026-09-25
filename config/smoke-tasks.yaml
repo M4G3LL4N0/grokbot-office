@@ -1,0 +1,26 @@
+# FIRST_SMOKE_TASK per role. Defaults by tier; name overrides win.
+# A smoke task is the FIRST manual task sent to a freshly created GrokBot to
+# prove it works before any production use. Keep each under 40 words.
+
+default:
+  command: "Return RESULT with your 5-line role summary over current live context only; confirm confidence 0-1."
+  engineering: "Inspect one repo; return RESULT facts=state/next-action, confidence and no other chatter."
+  intelligence: "Scan one defined topic; return RESULT facts=new/unchanged, confidence; escalate nothing."
+  research: "Verify one specific claim; return RESULT V/PARTIAL/FALSE/UNKNOWN + proof, confidence."
+  private-office: "Summarize one private-office item from authorized data; return RESULT with confidence."
+  family-office: "Return RESULT of one authorized family-office fact check; no money/legal action."
+  travel: "Return up to 3 options for one place/time; RESULT confidence only."
+  commerce: "Return RESULT on one opportunity scent; no deal action."
+  content: "Return RESULT on one content signal; no publishing."
+  experimentation: "Propose smallest test for one hypothesis; RESULT only."
+  experimental: "Return RESULT marking the idea as simulated, with confidence; take no external action."
+
+overrides:
+  # Wave 1 smoke tasks (mission-specified, exact text — the first & only
+  # verification task for each freshly created wave-1 GrokBot).
+  ChiefOfStaff: "Return your role, escalation path and current usage constraint in <=5 lines. Take no external action."
+  IntelligenceChief: "Return your role and what qualifies for escalation in <=4 lines. Do no research."
+  ProjectsChief: "Return your role and who you report to in <=4 lines. Take no external action."
+  RepoCensus: "Inventory exactly 3 repos: purpose,state,last-change,next-action; RESULT, no prose."
+  FamilyCFO: "Return RESULT: current cash-flow picture from authorized data only; flag needs-human items; confidence."
+  SunsetEngine: "Given today's place/time, return up to 3 sunset options with drive/parking facts; confidence only."

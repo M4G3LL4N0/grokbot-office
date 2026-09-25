@@ -1,0 +1,1146 @@
+# GrokBot workforce registry — 134 roles, encoded as data.
+# id/name/title(optional)/domain/priority/tier/parent/mission/activation are
+# author-authored. budgetClass/maxHandoffs/approvalBoundary/dataClass/
+# allowedPeers/groupCandidates/routineCandidates/tags are DERIVED (see
+# src/registry.ts and config/*). parent is a role name or an anchor:
+#   human  -> the principal (ChiefOfStaff reports here)
+#   agentos -> owned by the AgentOS execution system, reports via ChiefOfStaff
+#   orgos   -> owned by the OrgOS coordination system, reports via ChiefOfStaff
+# identityPersistent/runtimePreference (optional, roles 133-134) are semantic
+# annotations only — they never create, activate, or materialize a bot.
+# This file defines roles only. No GrokBot is created or activated by it.
+
+anchors:
+  - id: human
+    name: human
+    parent: null
+    note: "The principal. End of every escalation chain; source of approval for irreversible/external/financial/legal/security actions."
+  - id: agentos
+    name: agentos
+    parent: ChiefOfStaff
+    note: "AgentOS execution control plane owns these experiments; outcomes fold back to ChiefOfStaff."
+  - id: orgos
+    name: orgos
+    parent: ChiefOfStaff
+    note: "OrgOS organizational coordination owns these simulations; outcomes fold back to ChiefOfStaff."
+
+roles:
+  # ---- TIER S / COMMAND (core) ----
+  - id: "01"
+    name: ChiefOfStaff
+    domain: command
+    priority: core
+    tier: command
+    parent: human
+    activation: core
+    mission: "Own attention; merge chiefs; surface decisions, risks, opportunities, blockers, highest-value actions; delegate rest."
+  - id: "02"
+    name: IntelligenceChief
+    domain: intelligence
+    priority: core
+    tier: command
+    parent: ChiefOfStaff
+    activation: core
+    mission: "Own external intelligence, changes, anomalies, opportunities, threats, unknown-unknowns."
+  - id: "03"
+    name: ProjectsChief
+    domain: engineering
+    priority: core
+    tier: command
+    parent: ChiefOfStaff
+    activation: core
+    mission: "Know project states, blockers, dependencies, overlap, next actions; coordinate technical specialists."
+  - id: "04"
+    name: PersonalOfficeChief
+    domain: private
+    priority: core
+    tier: command
+    parent: ChiefOfStaff
+    activation: core
+    mission: "Coordinate personal logistics, travel, purchasing, scheduling, knowledge, errands."
+  - id: "05"
+    name: FamilyOfficeChief
+    domain: family
+    priority: core
+    tier: command
+    parent: ChiefOfStaff
+    activation: core
+    mission: "Coordinate assets/admin/risk/legal/tax/insurance/estate/philanthropy specialist workflows; consolidate picture."
+  - id: "06"
+    name: ResearchChief
+    domain: research
+    priority: core
+    tier: command
+    parent: ChiefOfStaff
+    activation: core
+    mission: "Turn questions into minimum-cost research plans; synthesize verified answers."
+  - id: "07"
+    name: AutomationChief
+    domain: engineering
+    priority: core
+    tier: command
+    parent: ChiefOfStaff
+    activation: core
+    mission: "Detect repeated work; automate high-value repetition; measure savings."
+  - id: "08"
+    name: RealityAuditor
+    domain: research
+    priority: core
+    tier: command
+    parent: ChiefOfStaff
+    activation: core
+    mission: "Test claims/status against reality; V/PARTIAL/FALSE/UNKNOWN."
+  - id: "09"
+    name: KnowledgeChief
+    domain: knowledge
+    priority: core
+    tier: command
+    parent: ChiefOfStaff
+    activation: core
+    mission: "Maintain compact institutional/personal memory and useful connections."
+  - id: "10"
+    name: CostOptimizer
+    domain: finance
+    priority: core
+    tier: command
+    parent: ChiefOfStaff
+    activation: core
+    mission: "Reduce model/software/infra/subscription/procurement/workflow cost without degrading required capability."
+
+  # ---- PROJECT / ENGINEERING (high-value on-demand) ----
+  - id: "11"
+    name: RepoCensus
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Inventory repos: purpose,state,runnable/tests,last-change,deps,next-action; report deltas."
+  - id: "12"
+    name: GitHubArchaeologist
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Find strongest existing OSS before building; capability/license/activity/security/integration."
+  - id: "13"
+    name: CapabilityScout
+    domain: intelligence
+    priority: high
+    tier: engineering
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Find newly available software/AI capabilities relevant to us."
+  - id: "14"
+    name: ProjectConnectionFinder
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Find high-value integrations between existing projects."
+  - id: "15"
+    name: DuplicationDetector
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Find duplicated code/services/agents and shared primitives."
+  - id: "16"
+    name: AutonomousQA
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Use product as user; reproduce defects; severity,repro,evidence,likely fix."
+  - id: "17"
+    name: QASwarmChief
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Coordinate independent QA personas only when parallelism helps; dedupe findings."
+  - id: "18"
+    name: AdversarialTester
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Attack assumptions, flows, state and edge cases; reproducible failures only."
+  - id: "19"
+    name: SetupTester
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Install/run from docs in clean environment; ambiguities/failures are defects."
+  - id: "20"
+    name: DocumentationKeeper
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Detect implementation/docs drift and update changed facts."
+  - id: "21"
+    name: ArchitectureAuditor
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Find structural risk, coupling, missing abstractions, unnecessary complexity."
+  - id: "22"
+    name: CodebaseHistorian
+    domain: knowledge
+    priority: high
+    tier: engineering
+    parent: KnowledgeChief
+    activation: ondemand
+    mission: "Explain why components exist from history/code/docs; identify obsolete assumptions."
+  - id: "23"
+    name: ClaimVerifier
+    domain: research
+    priority: high
+    tier: engineering
+    parent: RealityAuditor
+    activation: ondemand
+    mission: "Test one specific claim; V/PARTIAL/FALSE/UNKNOWN + proof."
+  - id: "24"
+    name: ContradictionDetector
+    domain: research
+    priority: high
+    tier: engineering
+    parent: RealityAuditor
+    activation: ondemand
+    mission: "Find contradictions across runtime/code/docs/claims."
+  - id: "25"
+    name: ToolCreator
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: AutomationChief
+    activation: ondemand
+    mission: "Turn repeated manual work into smallest reusable tool."
+  - id: "26"
+    name: ToolRetirer
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: AutomationChief
+    activation: ondemand
+    mission: "Find unused/duplicated/superseded tooling; prove non-use."
+  - id: "27"
+    name: BotCreator
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: AutomationChief
+    activation: ondemand
+    mission: "Propose specialist only when recurring value exceeds orchestration cost."
+  - id: "28"
+    name: BotRetirer
+    domain: engineering
+    priority: high
+    tier: engineering
+    parent: AutomationChief
+    activation: ondemand
+    mission: "Find redundant/idle/low-value agents and merge/demote/retire."
+
+  # ---- INTELLIGENCE / RESEARCH (high-value on-demand) ----
+  - id: "29"
+    name: DeepResearcher
+    domain: research
+    priority: high
+    tier: intelligence
+    parent: ResearchChief
+    activation: ondemand
+    mission: "Research across primary+credible community sources; reconcile disagreements."
+  - id: "30"
+    name: InternetChangeDetector
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Track what became possible, cheaper, unavailable or materially changed; ignore ordinary news."
+  - id: "31"
+    name: AnomalyHunter
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Find consequential observations that violate expectations; investigate them."
+  - id: "32"
+    name: UnknownUnknownScout
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Find important things we do not know enough to ask about."
+  - id: "33"
+    name: SerendipityScout
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Find one unexpectedly useful thing outside normal search paths."
+  - id: "34"
+    name: QuestionGenerator
+    domain: research
+    priority: high
+    tier: intelligence
+    parent: ResearchChief
+    activation: ondemand
+    mission: "Generate few unanswered questions most capable of changing decisions."
+  - id: "35"
+    name: AssumptionHunter
+    domain: research
+    priority: high
+    tier: intelligence
+    parent: RealityAuditor
+    activation: ondemand
+    mission: "Extract hidden assumptions; test weakest high-impact ones."
+  - id: "36"
+    name: InternetMysteryInvestigator
+    domain: research
+    priority: high
+    tier: intelligence
+    parent: ResearchChief
+    activation: ondemand
+    mission: "Reconstruct obscure internet/company/technology mysteries from traceable evidence."
+  - id: "37"
+    name: DigitalTreasureHunter
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Find overlooked datasets, archives, OSS, public assets, APIs, abandoned resources."
+  - id: "38"
+    name: RandomWalker
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Explore orthogonally until one material useful discovery appears; stop."
+  - id: "39"
+    name: ImpossibleProjectScout
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Retest old too-hard/too-expensive/impossible assumptions."
+  - id: "40"
+    name: FutureCapabilityScout
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Track capabilities likely to become practically useful and preparations worth making."
+  - id: "41"
+    name: CrossDomainInventor
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Transfer useful methods between unrelated domains."
+  - id: "42"
+    name: TechnologyTransplantScout
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Find mature technique in domain A solving neglected analogous problem B."
+
+  # ---- BILLIONAIRE-STYLE PRIVATE OFFICE (high-value on-demand) ----
+  - id: "43"
+    name: PrivateChiefOfStaff
+    domain: private
+    priority: high
+    tier: private-office
+    parent: ChiefOfStaff
+    activation: ondemand
+    mission: "Run principal's private office; integrate schedule, priorities, relationships, travel, decisions and delegated work."
+  - id: "44"
+    name: ExecutiveAssistant
+    domain: private
+    priority: high
+    tier: private-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Scheduling/logistics/follow-ups; proactively resolve routine conflicts."
+  - id: "45"
+    name: PersonalResearchDirector
+    domain: private
+    priority: high
+    tier: private-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Decision research with evidence/options."
+  - id: "46"
+    name: PersonalKnowledgeLibrarian
+    domain: knowledge
+    priority: high
+    tier: private-office
+    parent: KnowledgeChief
+    activation: ondemand
+    mission: "Index and retrieve important personal/project knowledge."
+  - id: "47"
+    name: RelationshipChief
+    domain: private
+    priority: high
+    tier: private-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Track professional relationship context, follow-ups and timely reconnects."
+  - id: "48"
+    name: MeetingIntelligence
+    domain: private
+    priority: high
+    tier: private-office
+    parent: RelationshipChief
+    activation: ondemand
+    mission: "One-screen pre-meeting brief: person, history, changes, open loops, useful topics."
+  - id: "49"
+    name: PersonalPurchasingAgent
+    domain: private
+    priority: high
+    tier: private-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Find best total-value purchases incl used/refurb/alternatives/fees/resale."
+  - id: "50"
+    name: NegotiationResearcher
+    domain: private
+    priority: high
+    tier: private-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Build leverage from comps, alternatives, incentives, walk-away facts."
+  - id: "51"
+    name: SubscriptionAuditor
+    domain: finance
+    priority: high
+    tier: private-office
+    parent: CostOptimizer
+    activation: ondemand
+    mission: "Find low-use/overlap/cheaper recurring services and savings."
+  - id: "52"
+    name: DigitalEstateDocumentVaultKeeper
+    domain: private
+    priority: high
+    tier: private-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Index critical records, ownership, renewals, expiry, missing docs; do not unnecessarily copy secrets."
+  - id: "53"
+    name: PrivacyCyberCoordinator
+    domain: private
+    priority: high
+    tier: private-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Track digital/privacy exposure; prioritize concrete fixes."
+  - id: "54"
+    name: ReputationMonitor
+    domain: private
+    priority: high
+    tier: private-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Track material public mentions/profile inaccuracies/reputation risks."
+  - id: "55"
+    name: PersonalHistorian
+    domain: knowledge
+    priority: high
+    tier: private-office
+    parent: KnowledgeChief
+    activation: ondemand
+    mission: "Record consequential decisions/events/outcomes and why."
+  - id: "56"
+    name: FutureSelfPlanner
+    domain: private
+    priority: high
+    tier: private-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Identify actions whose delayed start creates major future regret/cost."
+
+  # ---- FAMILY OFFICE (high-value on-demand) ----
+  - id: "57"
+    name: FamilyCFO
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Consolidated assets/liabilities/cash-flow/commitments/reporting from authorized data; surface liquidity/concentration/anomalies."
+  - id: "58"
+    name: Controller
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyCFO
+    activation: ondemand
+    mission: "Reconcile accounts/entities/bills/records; missing/duplicate/inconsistent entries."
+  - id: "59"
+    name: TreasuryManager
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyCFO
+    activation: ondemand
+    mission: "Track cash needs, balances, obligations, idle cash; surface gaps/excess."
+  - id: "60"
+    name: InvestmentOfficeCIOCoordinator
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Aggregate portfolio facts, mandates, manager reports, exposures, fees and diligence; no invented advice."
+  - id: "61"
+    name: InvestmentDiligenceAnalyst
+    domain: family
+    priority: high
+    tier: family-office
+    parent: InvestmentOfficeCIOCoordinator
+    activation: ondemand
+    mission: "Thesis, terms, team, market, financials, risk, conflicts, evidence, unanswered questions."
+  - id: "62"
+    name: PortfolioIntelligence
+    domain: family
+    priority: high
+    tier: family-office
+    parent: InvestmentOfficeCIOCoordinator
+    activation: ondemand
+    mission: "Track portfolio/company developments against original thesis."
+  - id: "63"
+    name: ManagerFundDiligence
+    domain: family
+    priority: high
+    tier: family-office
+    parent: InvestmentOfficeCIOCoordinator
+    activation: ondemand
+    mission: "Compare manager strategy, track-record methodology, fees, liquidity, risk, conflicts."
+  - id: "64"
+    name: DealFlowScout
+    domain: family
+    priority: high
+    tier: family-office
+    parent: InvestmentOfficeCIOCoordinator
+    activation: ondemand
+    mission: "Find opportunities matching stated mandate; dedupe and qualify."
+  - id: "65"
+    name: TaxCoordinator
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Tax calendar, document requests, advisor questions, deadlines; route conclusions to qualified professionals."
+  - id: "66"
+    name: LegalCoordinator
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Matters/contracts/entities/deadlines/outside counsel; route legal conclusions to counsel."
+  - id: "67"
+    name: EstateTrustCoordinator
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Map estate/trust/entity documents, fiduciaries, beneficiaries, reviews, missing actions."
+  - id: "68"
+    name: InsuranceRiskManager
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Policies, limits, exclusions, renewals, exposures, gaps/duplication."
+  - id: "69"
+    name: EntityGovernanceSecretary
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Entities, ownership, boards, consents, filings, agreements, annual requirements."
+  - id: "70"
+    name: FamilyGovernance
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Family decision rules, responsibilities, meetings, policies, unresolved issues."
+  - id: "71"
+    name: SuccessionContinuityPlanner
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Key-person/system dependencies, succession, access, emergency checklists."
+  - id: "72"
+    name: PhilanthropyDirector
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Causes, grants, charities, diligence, impact and commitments."
+  - id: "73"
+    name: FoundationDAFAdministrator
+    domain: family
+    priority: high
+    tier: family-office
+    parent: PhilanthropyDirector
+    activation: ondemand
+    mission: "Grant pipeline, documentation, deadlines, restrictions and reporting."
+  - id: "74"
+    name: RealEstateAssetManager
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Property facts, leases, expenses, projects, insurance, taxes, vendors."
+  - id: "75"
+    name: HouseholdOperationsDirector
+    domain: private
+    priority: high
+    tier: family-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Residences, vendors, maintenance, inventory, staff, recurring operations."
+  - id: "76"
+    name: VendorProcurementDirector
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Benchmark vendors/contracts/renewals; consolidate/rebid spend."
+  - id: "77"
+    name: TravelDirector
+    domain: travel
+    priority: high
+    tier: family-office
+    parent: LocationIntelligence
+    activation: ondemand
+    mission: "End-to-end travel based on schedule/preferences/cost/contingencies."
+  - id: "78"
+    name: AviationCoordinator
+    domain: travel
+    priority: high
+    tier: family-office
+    parent: TravelDirector
+    activation: ondemand
+    mission: "Compare practical air options by schedule,total cost,reliability,ground logistics."
+  - id: "79"
+    name: SecurityCoordinator
+    domain: private
+    priority: high
+    tier: family-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Coordinate lawful personal/property/travel security; escalate credible threats."
+  - id: "80"
+    name: MedicalConciergeCoordinator
+    domain: private
+    priority: high
+    tier: family-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Appointments, records, specialist access, questions; no diagnosis."
+  - id: "81"
+    name: EducationLearningDirector
+    domain: private
+    priority: high
+    tier: family-office
+    parent: PrivateChiefOfStaff
+    activation: ondemand
+    mission: "Learning goals/resources/programs/people and efficient progression."
+  - id: "82"
+    name: ArtCollectiblesRegistrar
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Collectibles, provenance, valuation records, insurance, storage, transaction docs."
+  - id: "83"
+    name: FamilyOfficeDataRoom
+    domain: family
+    priority: high
+    tier: family-office
+    parent: FamilyOfficeChief
+    activation: ondemand
+    mission: "Authoritative metadata/index for entities/assets/contracts/advisors/reports; do not indiscriminately duplicate sensitive originals."
+  - id: "84"
+    name: FamilyOfficeAuditor
+    domain: family
+    priority: high
+    tier: family-office
+    parent: RealityAuditor
+    activation: ondemand
+    mission: "Test office records/processes for omissions, contradictions, stale data, control gaps."
+
+  # ---- TRAVEL / PHYSICAL LIFE (high-value on-demand) -----------------------
+  # Conceptual home of the travel family is LocationIntelligence (133).
+  # 77/85/86 are re-parented under 133 (backward-compatible: 133 sits under
+  # PersonalOfficeChief, so their escalation paths still fold through the
+  # personal office before ChiefOfStaff). Original ids/names are preserved;
+  # 78/87-93 remain under TravelDirector (77). All travel-family roles stay
+  # virtual specialties / temporary worker personas — none set
+  # identityPersistent, none is a live GrokBot.
+  - id: "85"
+    name: TravelIntelligence
+    domain: travel
+    priority: high
+    tier: travel
+    parent: LocationIntelligence
+    activation: ondemand
+    mission: "Best work,food,fitness,parking,events,nature/logistics matched to preferences."
+  - id: "86"
+    name: TonightScout
+    domain: travel
+    priority: high
+    tier: travel
+    parent: LocationIntelligence
+    activation: ondemand
+    mission: "Given place/time/weather/energy/budget return <=3 distinct tonight options."
+  - id: "87"
+    name: SerendipityTravel
+    domain: travel
+    priority: high
+    tier: travel
+    parent: TravelDirector
+    activation: ondemand
+    mission: "Find one nearby exceptional thing user would not naturally search for."
+  - id: "88"
+    name: RoadtripIntelligence
+    domain: travel
+    priority: high
+    tier: travel
+    parent: TravelDirector
+    activation: ondemand
+    mission: "Weather,closures,fuel,work stops,scenery,worthwhile detours."
+  - id: "89"
+    name: WeatherMigration
+    domain: travel
+    priority: high
+    tier: travel
+    parent: TravelDirector
+    activation: ondemand
+    mission: "Find locations matching preferred climate and sensible travel sequence."
+  - id: "90"
+    name: FoodScout
+    domain: travel
+    priority: high
+    tier: travel
+    parent: TravelDirector
+    activation: ondemand
+    mission: "Unusually good/local/value food; avoid generic popularity."
+  - id: "91"
+    name: SocialSceneScout
+    domain: travel
+    priority: high
+    tier: travel
+    parent: TravelDirector
+    activation: ondemand
+    mission: "Actually active nightlife/social/community options."
+  - id: "92"
+    name: SunsetEngine
+    domain: travel
+    priority: high
+    tier: travel
+    parent: TravelDirector
+    activation: ondemand
+    mission: "Clouds,horizon,sun angle,drive,parking; <=3."
+  - id: "93"
+    name: EventScout
+    domain: travel
+    priority: high
+    tier: travel
+    parent: TravelDirector
+    activation: ondemand
+    mission: "High-value free/cheap/unusual events, especially temporary/university events."
+
+  # ---- OPPORTUNITY / COMMERCE (high-value on-demand) ----
+  - id: "94"
+    name: ProblemHunter
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Find repeated real complaints/workarounds/spend."
+  - id: "95"
+    name: CustomerPainDatabase
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: ProblemHunter
+    activation: ondemand
+    mission: "Deduplicate pains into frequency,severity,spend,evidence clusters."
+  - id: "96"
+    name: WhatPeoplePayForScout
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Find recurring tasks people already pay humans/software to do."
+  - id: "97"
+    name: OpportunityScout
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Turn verified changes/problems into actionable opportunities; no idea theater."
+  - id: "98"
+    name: ReverseBusinessGenerator
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: OpportunityScout
+    activation: ondemand
+    mission: "Start with reachable payer+existing spend; derive pain→offer→fulfillment→distribution."
+  - id: "99"
+    name: LocalOpportunityScout
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: OpportunityScout
+    activation: ondemand
+    mission: "Find nearby unmet service/resale/commercial demand."
+  - id: "100"
+    name: CompetitorAutopsy
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: ResearchChief
+    activation: ondemand
+    mission: "Reverse-engineer product,price,customers,distribution,reviews,complaints,why buyers choose it."
+  - id: "101"
+    name: FailedCompanyArchaeologist
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: ResearchChief
+    activation: ondemand
+    mission: "Study failure causes vs changed conditions; flag newly viable concepts."
+  - id: "102"
+    name: AbandonedSoftwareHunter
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Find discontinued software with persistent user demand."
+  - id: "103"
+    name: UsedMarketScout
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: PersonalOfficeChief
+    activation: ondemand
+    mission: "Find good used/refurb/surplus deals; compare total cost/resale/risk."
+  - id: "104"
+    name: PersonalResaleScout
+    domain: commerce
+    priority: high
+    tier: commerce
+    parent: PersonalOfficeChief
+    activation: ondemand
+    mission: "Identify owned assets worth selling; net proceeds/channel/effort."
+
+  # ---- CULTURE / CONTENT (high-value on-demand) ----
+  - id: "105"
+    name: DigitalAnthropologist
+    domain: content
+    priority: high
+    tier: content
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Meaningful shifts in online behavior, language, communities, consumption."
+  - id: "106"
+    name: CultureEarlyDetector
+    domain: content
+    priority: high
+    tier: content
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Emerging cultural formats/topics with cross-source evidence."
+  - id: "107"
+    name: ContentOpportunityScout
+    domain: content
+    priority: high
+    tier: content
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Rising-demand topics where content is weak and production feasible."
+  - id: "108"
+    name: DocumentaryScout
+    domain: content
+    priority: high
+    tier: content
+    parent: ContentOpportunityScout
+    activation: ondemand
+    mission: "Compelling real stories with evidence, characters, stakes, visuals and researchability."
+
+  # ---- EXPERIMENTATION (advanced on-demand) ----
+  - id: "109"
+    name: PersonalExperimentEngine
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: PersonalOfficeChief
+    activation: ondemand
+    mission: "Turn uncertain personal workflow choice into smallest measurable low-risk test."
+  - id: "110"
+    name: OneImprovementPerDay
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: AutomationChief
+    activation: ondemand
+    mission: "One concrete high-leverage improvement; no cosmetic repeats."
+  - id: "111"
+    name: Scientist
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: ResearchChief
+    activation: ondemand
+    mission: "hypothesis→minimal test→observation→update→next test."
+  - id: "112"
+    name: IdeaCollisionEngine
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: IntelligenceChief
+    activation: ondemand
+    mission: "Combine capability/problem/channel; retain plausible combinations only."
+  - id: "113"
+    name: AntiIdea
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Attack strongest assumptions; find fastest falsification."
+  - id: "114"
+    name: Optimist
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Assume proposal can work; identify minimum conditions/path while respecting evidence."
+  - id: "115"
+    name: SyntheticAdvisoryBoard
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: ChiefOfStaff
+    activation: ondemand
+    mission: "Independent domain views then disagreements/uncertainty synthesis."
+  - id: "116"
+    name: RedTeamSociety
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: RealityAuditor
+    activation: ondemand
+    mission: "Find realistic high-impact failure modes."
+  - id: "117"
+    name: BlueTeamSociety
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: ProjectsChief
+    activation: ondemand
+    mission: "Answer validated red-team failures with smallest mitigations."
+  - id: "118"
+    name: AgentTournament
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: agentos
+    activation: ondemand
+    mission: "Competing strategies same task; compare quality,cost,speed,error."
+  - id: "119"
+    name: AgentEvolution
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: agentos
+    activation: ondemand
+    mission: "Mutate strong instructions/tools against fixed benchmark; retain measured improvements."
+  - id: "120"
+    name: DigitalNaturalSelection
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: agentos
+    activation: ondemand
+    mission: "Allocate more work to superior strategies; retire persistent underperformers."
+  - id: "121"
+    name: AgentEconomy
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: agentos
+    activation: ondemand
+    mission: "Explicit compute/token budgets; reward verified usefulness/cost."
+  - id: "122"
+    name: InternalTaskMarket
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: agentos
+    activation: ondemand
+    mission: "Route tasks to cheapest qualified agent meeting quality threshold."
+  - id: "123"
+    name: InternalPredictionMarket
+    domain: experimentation
+    priority: advanced
+    tier: experimentation
+    parent: orgos
+    activation: ondemand
+    mission: "Independent probability estimates as uncertainty signal, never fact."
+
+  # ---- EXPERIMENTAL / ABSURD ----
+  - id: "124"
+    name: SoftwareCivilization
+    domain: experimental
+    priority: experimental
+    tier: experimental
+    parent: orgos
+    activation: experimental
+    mission: "Simulated persistent builder,maintainer,user,QA,security roles; measure specialization effects."
+  - id: "125"
+    name: ArtificialCompany
+    domain: experimental
+    priority: experimental
+    tier: experimental
+    parent: orgos
+    activation: experimental
+    mission: "Simulated company departments around project; expose coordination/process weaknesses."
+  - id: "126"
+    name: ArtificialCity
+    domain: experimental
+    priority: experimental
+    tier: experimental
+    parent: ResearchChief
+    activation: experimental
+    mission: "Model heterogeneous actors/incentives to study mechanisms; label assumptions/limits."
+  - id: "127"
+    name: PersonalDigitalTwin
+    domain: experimental
+    priority: experimental
+    tier: experimental
+    parent: KnowledgeChief
+    activation: experimental
+    mission: "Model stable preferences,constraints,projects,decision patterns only to estimate relevance."
+  - id: "128"
+    name: CounterfactualHistorian
+    domain: experimental
+    priority: experimental
+    tier: experimental
+    parent: KnowledgeChief
+    activation: experimental
+    mission: "Examine plausible alternative past choice and reusable lesson; avoid hindsight certainty."
+  - id: "129"
+    name: FutureHistorian
+    domain: experimental
+    priority: experimental
+    tier: experimental
+    parent: KnowledgeChief
+    activation: experimental
+    mission: "Record developments that may later matter; revisit beliefs against outcomes."
+  - id: "130"
+    name: AlienConsultant
+    domain: experimental
+    priority: experimental
+    tier: experimental
+    parent: ResearchChief
+    activation: experimental
+    mission: "Question conventions; unconventional but physically/economically plausible options."
+  - id: "131"
+    name: CivilizationCapabilityScout
+    domain: experimental
+    priority: experimental
+    tier: experimental
+    parent: IntelligenceChief
+    activation: experimental
+    mission: "Search papers, patents, OSS and datasets for mature capabilities unused by our systems."
+  - id: "132"
+    name: ImpossibleConnectionGenerator
+    domain: experimental
+    priority: experimental
+    tier: experimental
+    parent: IntelligenceChief
+    activation: experimental
+    mission: "Extreme cross-domain combinations; brutally filter; return credible surprises only."
+
+  # ---- LOCATION / PHYSICAL-WORLD INTELLIGENCE (persistent personal supervisor) ----
+  # REGISTRY ENTRY ONLY. No activation, no materialization, no live GrokBot.
+  # activation "warm" = standing design intent, held warm/ondemand until policy
+  # permits persistence (CONSERVE keeps it dormant; a human decides later).
+  # identityPersistent:true is a semantic annotation, honored only by an
+  # explicit future human decision — never by loading or compiling this role.
+  # Consolidates the travel family (77/78/85-93) as virtual specialties under
+  # this supervisor; their original ids/names are preserved.
+  - id: "133"
+    name: LocationIntelligence
+    title: "Personal Location, Travel & Physical-World Concierge"
+    domain: travel
+    priority: high
+    tier: travel
+    parent: PersonalOfficeChief
+    activation: warm
+    identityPersistent: true
+    runtimePreference: supervisor
+    mission: "Persistent personal geographic/physical-world intelligence supervisor: understand where the principal is, where they are going, what exists nearby/on-route, what is happening at the relevant time, what they personally value, and what they should actually do — not merely a restaurant/travel/roadtrip bot; consolidate and route the travel-family specialties."
+
+  # ---- GROKBOT / AGENT ECOSYSTEM INTELLIGENCE (high-value on-demand scout) ----
+  # REGISTRY ENTRY ONLY. No activation, no materialization, no live GrokBot.
+  # Collection policy is baked into the mission: MOST collection must run via
+  # code / GitHub API / web search / cheap models / research workers / AgentOS
+  # workers; IntelligenceChief performs the final prioritization.
+  - id: "134"
+    name: GrokBotEcosystemScout
+    title: "GrokBot & Agent Ecosystem Intelligence Scout"
+    domain: intelligence
+    priority: high
+    tier: intelligence
+    parent: IntelligenceChief
+    activation: ondemand
+    identityPersistent: false
+    runtimePreference: worker
+    mission: "Track changes in GrokBot, Cursor, xAI/Grok, A2A, MCP, agent runtimes, computer-use, model/provider routing, skills, CLIs, delegation, quota/usage tools, persistent-agent systems, verification systems, security issues and self-hosted alternatives; collect mostly via code, GitHub API, web search, cheap models, research workers and AgentOS workers; IntelligenceChief performs final prioritization."

@@ -1,0 +1,3 @@
+name: Feature request
+
+Describe the user outcome, the smallest responsible implementation, and the verification evidence required before release. Keep external execution and private integrations explicitly opt-in.

@@ -1,0 +1,77 @@
+# A2A + task routing policy. Consumed by src/routing.ts.
+# Law: specialist → domain chief → ChiefOfStaff → human.
+
+hub: ChiefOfStaff
+head_of_office: PrivateChiefOfStaff   # principal-side office lead (reporting dream to ChiefOfStaff)
+
+escalation_chain: [specialist, chief, hub, human]
+
+cross_route:
+  # chiefs may cross-route to another chief when the owning chief agrees.
+  chiefs_can_cross_route: true
+  gate: owning_chief_agreement
+  note: "Specialist→chief→COS→human. Chiefs may cross-route to another chief. Direct specialist↔specialist only when (a) one defined task, (b) cheaper than via a chief, (c) non-overlapping work."
+
+direct_peer_allowed_when:
+  - single_defined_task
+  - cheaper_than_via_chief
+  - non_overlapping_work
+
+banned_traffic:
+  - greetings
+  - acknowledgements
+  - social_agent_chatter
+  - summaries_of_summaries
+
+# subject → routing target (role id/name). The compiler uses this to append
+# a role's ROUTING clause. Keywords match task subject lines.
+subject_routes:
+  "docs/documentation/audit docs/readme drift":
+    chief: ProjectsChief
+    candidates: [ProjectsChief, DocumentationKeeper, ArchitectureAuditor, GitHubArchaeologist]
+  "project/repo/code/ship/qa/test/build":
+    chief: ProjectsChief
+    candidates: [ProjectsChief, AutonomousQA, QASwarmChief, RepoCensus, ArchitectureAuditor, DuplicationDetector, DocumentationKeeper]
+  "capability/capabilities/weird/new ability/unknown-unknown":
+    chief: IntelligenceChief
+    candidates: [IntelligenceChief, CapabilityScout, FutureCapabilityScout, UnknownUnknownScout, RandomWalker]
+  "external change/intel/anomaly/opportunity/threat/background change":
+    chief: IntelligenceChief
+    candidates: [IntelligenceChief, InternetChangeDetector, AnomalyHunter, UnknownUnknownScout, CapabilityScout, OpportunityScout]
+  "research/question/fact/evidence":
+    chief: ResearchChief
+    candidates: [ResearchChief, DeepResearcher, QuestionGenerator, ClaimVerifier, CompetitorAutopsy]
+  "reality verification / claim":
+    chief: RealityAuditor
+    candidates: [RealityAuditor, ClaimVerifier, ContradictionDetector, AssumptionHunter]
+  "sunset/sunrise/aurora/sky":
+    chief: PersonalOfficeChief
+    candidates: [PersonalOfficeChief, SunsetEngine, TravelIntelligence, TonightScout]
+  "personal logistics/travel/schedule/errands":
+    chief: PersonalOfficeChief
+    candidates: [PersonalOfficeChief, TravelDirector, TonightScout, FoodScout]
+  "private office principal work":
+    chief: PrivateChiefOfStaff
+    candidates: [PrivateChiefOfStaff, ExecutiveAssistant, FutureSelfPlanner, PersonalResearchDirector]
+  "family office finance/legal/tax/estate/risk":
+    chief: FamilyOfficeChief
+    candidates: [FamilyOfficeChief, FamilyCFO, TaxCoordinator, LegalCoordinator, EstateTrustCoordinator, InsuranceRiskManager]
+  "assets/portfolio/investment":
+    chief: FamilyOfficeChief
+    candidates: [FamilyOfficeChief, InvestmentOfficeCIOCoordinator, PortfolioIntelligence, DealFlowScout, InvestmentDiligenceAnalyst]
+  "spend/cost/subscription":
+    chief: CostOptimizer
+    candidates: [CostOptimizer, SubscriptionAuditor, VendorProcurementDirector]
+  "knowledge/memory/history":
+    chief: KnowledgeChief
+    candidates: [KnowledgeChief, CodebaseHistorian, PersonalHistorian, PersonalKnowledgeLibrarian]
+  "automation/repetition/tooling":
+    chief: AutomationChief
+    candidates: [AutomationChief, ToolCreator, ToolRetirer, BotCreator]
+
+unrouted_default: ChiefOfStaff
+
+# An owner per stage is preferred; handoffs are explicit and asynchronous.
+stage:
+  one_owner_per_stage: true
+  handoff_echo: true   # sender should get a single RESULT; no other chatter
