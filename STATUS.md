@@ -1,16 +1,17 @@
 # Status
 
 Version: **0.1.0**
-Release state: **public release candidate prepared; remote verification pending**
+Release state: **public repository; CI verified on the verified code commit**
 
-## Verified locally
+## Verified locally and on GitHub
 
 - canonical role registry validation;
 - 134 conceptual roles, 3 reference supervisors, 131 virtual roles;
 - local typecheck, 149-test suite, production build, and doctor paths;
 - deterministic synthetic examples;
 - publication boundary validator with public, quarantined, and synthetic sets;
-- production dependency audit with no known high-severity findings.
+- production dependency audit with no known high-severity findings;
+- GitHub Actions `validate` passed on commit `bd499e97cf7e9df964280256815ba88e6db7409a`.
 
 ## Publication boundary
 
