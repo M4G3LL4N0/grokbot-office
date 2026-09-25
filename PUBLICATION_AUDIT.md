@@ -58,6 +58,7 @@ The validator scans only the public candidate directories and never reads exclud
 - [x] No deployment or private state included.
 - [x] Dedicated public remote created, pushed, and verified.
 - [x] GitHub Actions validation passed on the verified code commit.
-- [ ] v0.1.0 release tag and GitHub release created from the final verified commit.
+- [x] v0.1.0 release tag and GitHub release created from verified commit `69cbd295d88bc255530f4eea88c7583a06250df4`.
+- Release: https://github.com/M4G3LL4N0/grokbot-office/releases/tag/v0.1.0
 
 No local validation result is evidence of a live external worker.
