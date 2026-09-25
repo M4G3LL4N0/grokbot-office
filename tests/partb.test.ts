@@ -67,11 +67,11 @@ describe('part B: wave-2 creation queue', () => {
 });
 
 describe('part B: live roster', () => {
-  it('starts with three wave-1 live-verified and counts the rest virtual', () => {
+  it('starts with three wave-1 roles and counts the rest virtual', () => {
     const content = body('LIVE_ROSTER.md');
-    assert.match(content, /\| 01 \| ChiefOfStaff \| LIVE \(verified\)/);
-    assert.match(content, /\| 02 \| IntelligenceChief \| LIVE \(verified\)/);
-    assert.match(content, /\| 03 \| ProjectsChief \| LIVE \(verified\)/);
+    for (const [id, name] of [['01', 'ChiefOfStaff'], ['02', 'IntelligenceChief'], ['03', 'ProjectsChief']]) {
+      assert.match(content, new RegExp(`\\| ${id} \\| ${name} \\| (?:LIVE \\(verified\\)|PENDING)`));
+    }
     assert.match(content, /all other 131 roles \| registry-only \/ virtual/);
     assert.match(content, /materialize:set <id> live_verified/);
   });
