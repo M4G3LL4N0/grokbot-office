@@ -1,214 +1,101 @@
-# GrokBot Office
+# grokbot-office
 
-<p align="center">
-  <picture>
-    <source media="(prefers-reduced-motion: reduce)" srcset="assets/hero/hero-reduced.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/hero/hero-light.svg">
-    <img src="assets/hero/hero-motion.svg" alt="GrokBot Office — animated project plate showing request &rarr; candidate routes &rarr; policy select. Motion depicts this project's real state transition." width="100%">
-  </picture>
-</p>
+> Run a workforce. Do not become the workforce. Built in TypeScript. 4 modules (registry, runtime, scripts). Live at grokbot-office-xi.vercel.app.
 
-<p align="center">
-  <picture>
-    <source media="(prefers-reduced-motion: reduce)" srcset="assets/hero/computational-dark.svg">
-    <source media="(prefers-color-scheme: light)" srcset="assets/hero/computational-light.svg">
-    <img src="assets/hero/computational-motion.svg" alt="State machine: request &rarr; candidate routes &rarr; policy select." width="100%">
-  </picture>
-</p>
+The implementation summary below is intentionally conservative. Claims from NORTHSTAR are not presented as shipped functionality.
 
-> **GrokBot should run your workforce. It shouldn't be your entire workforce.**
+- [GitHub repository](https://github.com/M4G3LL4N0/grokbot-office)
+- [Project site](https://grokbot-office-xi.vercel.app)
 
-GrokBot Office is a public-safe reference control layer for a large, external workforce. It keeps the persistent supervisory core small: a small set of Grok supervisors owns intent, context, policy, tradeoffs, and handoffs while replaceable workers do the bounded work.
+<!-- NOAERTH_IMAGE_SLOT: grokbot-office/hero -->
 
-This repository is the workforce configuration and operating model. It is not AgentOS, not a bot factory, not an operating system, and not evidence that any external worker is currently live.
+## What it is
 
-## The model
+Run a workforce. Do not become the workforce. Built in TypeScript. 4 modules (registry, runtime, scripts). Live at grokbot-office-xi.vercel.app.
 
-```text
-user / PAIOS intent
-        ↓
-small persistent GrokBot supervisor core
-  context · queue · policy · approvals · tradeoffs · synthesis
-        ↓
-AgentOS execution substrate
-  capability discovery · routing · bounded execution · verification · learning
-        ↓
-elastic workers
-  local tools · models · APIs · MCP · A2A · browser or cloud executors
-        ↓
-evidence, handoff, and the next action
+This repository is part of the NOAERTH venture ecosystem. The current public-facing evidence identifies it as a early-stage project rather than a production-ready system.
+
+## Capabilities
+
+### Available evidence
+
+- The repository contains the implementation and documentation associated with the project description above.
+- The technology signals currently visible in the local project are listed in the technical notes below.
+- No additional capability is asserted here without a direct implementation reference.
+
+### Experimental or planned
+
+Roadmap intent is deliberately not represented as shipped functionality. Review NORTHSTAR and source implementation together before adding future-facing claims.
+
+<!-- NOAERTH_IMAGE_SLOT: grokbot-office/workflow -->
+
+## How it works
+
+The current evidence supports a repository-level application or tool workflow, but does not provide enough verified detail in the Part 1 record to publish a component-level architecture diagram. The architecture slot is reserved for a deterministic diagram after the source flow is reviewed.
+
+<!-- NOAERTH_IMAGE_SLOT: grokbot-office/architecture -->
+
+## Quick start
+
+### Prerequisites
+
+- A runtime suitable for `Node.js`.
+- A clean checkout of this repository.
+
+### Install
+
+```sh
+pnpm install
 ```
 
-[AgentOS](https://github.com/M4G3LL4N0/agentos) is the provider-neutral execution and orchestration substrate. GrokBot Office supplies the workforce configuration that sits above it. The relationship is explicit and read-only at this package boundary; neither project claims ownership of the other.
+### Run locally
 
-The [GrokBot Office website](https://github.com/M4G3LL4N0/grokbot-office-website) presents the same model as a readable architecture reference.
-
-## North star and core loop
-
-**Verified useful output ÷ total resource cost**
-
-```text
-intent and context
-  → choose the smallest capable owner
-  → apply data, resource, and approval policy
-  → route or compile a bounded task
-  → hand work to a replaceable executor
-  → verify the result
-  → coach, record a lesson, and decide whether to reuse
+```sh
+Use the repository's documented entry point after installing dependencies.
 ```
 
-The goal is not to make every task expensive or to create one bot per role. The goal is to make the next equivalent task cheaper by retrieving the right artifact, reducing context, and keeping the smallest capable team in control.
+### Build
 
-## Workforce counts
-
-The checked-in registry contains:
-
-- **134 conceptual role definitions** — responsibilities modeled as data;
-- **3 reference supervisors** — the local smallest-team configuration;
-- **131 virtual roles** — available as definitions but not provisioned workers.
-
-A role is not a bot. A profile, packet, route, or `live_verified` label is not proof of execution. The registry can describe a large workforce without creating, authenticating, funding, or activating 134 external identities.
-
-## What the package provides
-
-- canonical role registry and schema validation;
-- supervisor context, policy, handoff, and escalation contracts;
-- deterministic routing and workflow compilation aids;
-- synthetic A2A, cache, workflow, resource-governor, and verification examples;
-- local validation and a publication boundary validator.
-
-The package does not scrape usage, invent quota data, run paid providers, or claim a live external workforce.
-
-## Honest status categories
-
-| Category | Boundary |
-| --- | --- |
-| **VERIFIED** | Registry validation, role/profile data, local typecheck, 149 tests, build, doctor, synthetic examples, and publication validation. |
-| **OPTIONAL** | External workers, adapters, A2A/MCP boundaries, cloud supervision, and human review loops when their credentials and policies are explicitly configured. |
-| **UNCONFIGURED** | Live accounts, provider credentials, browser sessions, cloud workers, and production account state. |
-| **EXPERIMENTAL** | Resource-governor extensions, ecosystem scouting, and learned routing that still need measured operator evidence before consequential use. |
-| **PLANNED** | Reviewed external adapters, human approval UX, portable manifests, and optional cloud supervision behind explicit resource policy. |
-
-## Quickstart
-
-```bash
-git clone https://github.com/M4G3LL4N0/grokbot-office.git
-cd grokbot-office
-pnpm install --frozen-lockfile
-pnpm typecheck
-pnpm test
-pnpm build
-pnpm validate
-pnpm validate:publication
-pnpm grok doctor
+```sh
+pnpm run build
 ```
 
-Run state-changing commands only against a deliberate local state directory. The publication validator is stdlib-only and performs no network access.
+### Test
 
-## Core documents
+```sh
+pnpm run test
+```
 
-- [`ARCHITECTURE.md`](ARCHITECTURE.md) — control-core and worker boundaries.
-- [`ROLE_MODEL.md`](ROLE_MODEL.md) — role, anchor, and virtual-role semantics.
-- [`AGENTOS.md`](AGENTOS.md) — the explicit AgentOS relationship.
-- [`RESOURCE_GOVERNOR.md`](RESOURCE_GOVERNOR.md) — measured policy and bounded fan-out.
-- [`VERIFICATION.md`](VERIFICATION.md) — evidence and coach boundaries.
-- [`WORKFLOWS.md`](WORKFLOWS.md) — configuration-only workflow contracts.
-- [`OFFLINE.md`](OFFLINE.md) — offline and optional cloud operation.
-- [`SECURITY.md`](SECURITY.md) — credentials, identity, and public boundary.
-- [`PUBLICATION_AUDIT.md`](PUBLICATION_AUDIT.md) — the release candidate audit.
+Commands are included only when they were detected in the repository manifest; verify environment-specific requirements before deployment.
 
-## Examples
+## Technical notes
 
-The [`examples/`](examples/) directory contains synthetic simulations for repository audit, cached repeats, workflow compilation, location intelligence, ecosystem scouting, offline/cloud supervision, and usage-aware routing. They contain no private values and are not runtime evidence.
+- **Primary language:** JavaScript/TypeScript
+- **Runtime:** Node.js
+- **Package manager:** pnpm
+- **Framework and integration signals:** Go, Rust
+- **Entry-point signals:** package.json
+- **Test evidence:** No test evidence recorded in the inventory
+- **Repository topics:** `typescript`, `security`, `crypto`, `dung30n5`, `live`, `noaerth`, `policy`, `registry`
 
-## Security and contribution
+## Status and roadmap
 
-Keep credentials out of prompts, configuration, source, examples, logs, and state. Treat every external worker, MCP server, skill, and generated artifact as untrusted until reviewed. Read [`SECURITY.md`](SECURITY.md) before sharing anything and follow [`CONTRIBUTING.md`](CONTRIBUTING.md) before proposing a change.
+**Current status:** Early-stage project.
 
-## License
+**Current:** The repository and its documented implementation are available for inspection.
 
-MIT. See [`LICENSE`](LICENSE).
+**Next:** Reconcile the README, source behavior, and safe public product language before adding deeper examples or diagrams.
 
-<!-- TRILLIONX:presentation:begin -->
+**Future:** Product direction is maintained separately and must not be read as a shipped feature list.
 
-### Animated surfaces
+## Contributing and license
 
-Generated from this repository's own source tree: every count, route and module below was measured, not written by hand.
+Follow the repository's existing contribution and licensing files where present. This README does not invent an open-source license or contribution policy.
 
-#### Identity
+## Visual documentation
 
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/hero-reduced.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/hero-light.svg">
-  <img alt="Identity diagram for grokbot-office" src="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/hero-motion.svg">
-</picture>
+Image slots are intentionally comments until authentic screenshots, deterministic diagrams, or approved conceptual visuals exist. No absent image file is referenced.
 
-#### Modules
+## NOAERTH
 
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/architecture-reduced.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/architecture-light.svg">
-  <img alt="Modules diagram for grokbot-office" src="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/architecture-motion.svg">
-</picture>
-
-#### Primitives
-
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/state_machine-reduced.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/state_machine-light.svg">
-  <img alt="Primitives diagram for grokbot-office" src="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/state_machine-motion.svg">
-</picture>
-
-#### Build and tests
-
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/build-reduced.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/build-light.svg">
-  <img alt="Build and tests diagram for grokbot-office" src="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/build-motion.svg">
-</picture>
-
-#### Workflow
-
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/workflow-reduced.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/workflow-light.svg">
-  <img alt="Workflow diagram for grokbot-office" src="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/workflow-motion.svg">
-</picture>
-
-#### Domain
-
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/domain-reduced.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/domain-light.svg">
-  <img alt="Domain diagram for grokbot-office" src="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/domain-motion.svg">
-</picture>
-
-#### Identity object
-
-<picture>
-  <source media="(prefers-reduced-motion: reduce)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/footer-reduced.svg">
-  <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/footer-light.svg">
-  <img alt="Identity object diagram for grokbot-office" src="https://raw.githubusercontent.com/M4G3LL4N0/grokbot-office/main/.github-art/surfaces/footer-motion.svg">
-</picture>
-
-<!-- TRILLIONX:presentation:end -->
-
-<!-- TRILLIONX:evidence:begin -->
-
-## What is measurable here
-
-Generated by `.github-art` from the source tree at publish time.
-
-| Signal | Value |
-| --- | --- |
-| HTTP routes | 0 |
-| Entry points | 0 |
-| Module roots | 4 |
-| Test files | 19 |
-| CI workflows | 1 |
-| Distinctive stack | scaffold only |
-| Status | LIVE |
-| Evidence confidence | E3 |
-| Animated surfaces | 7 |
-
-<!-- TRILLIONX:evidence:end -->
+[NOAERTH](https://www.noaerth.com) is the venture ecosystem associated with this project.
