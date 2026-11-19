@@ -5,7 +5,6 @@ GrokBot Office provides a CLI for inspecting and operating on workforce definiti
 - **Version in repository:** `0.1.0`
 - **License:** MIT
 - **Source:** [GitHub](https://github.com/M4G3LL4N0/grokbot-office)
-- **Project site:** [https://grokbot-office-xi.vercel.app](https://grokbot-office-xi.vercel.app)
 
 ## Installation
 
